@@ -1,0 +1,65 @@
+﻿@model Code2.Models.Vm.EmployeeVM
+@{
+    ViewBag.Title = "Create Employee";
+}
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-5">Create New Employee</h2>
+
+        @using (Html.BeginForm("Create", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <!-- Form Start -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="EmployeeName" class="form-label">Employee Name</label>
+                    @Html.TextBoxFor(x => x.EmployeeName, new { @class = "form-control", placeholder = "Enter employee name" })
+                    @Html.ValidationMessageFor(x => x.EmployeeName, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="Age" class="form-label">Age</label>
+                    @Html.TextBoxFor(x => x.Age, new { @class = "form-control", placeholder = "Enter employee age" })
+                    @Html.ValidationMessageFor(x => x.Age, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-check mb-3">
+                @Html.CheckBoxFor(x => x.EmployeeActive, new { @class = "form-check-input", id = "EmployeeActive" })
+                <label class="form-check-label" for="EmployeeActive">Is Active</label>
+                @Html.ValidationMessageFor(x => x.EmployeeActive, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                <label for="DateOfJoining" class="form-label">Date of Joining</label>
+                @Html.TextBoxFor(x => x.DateOfJoining, new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(x => x.DateOfJoining, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                <label for="PictureFile" class="form-label">Profile Picture</label>
+                <input type="file" class="form-control" id="PictureFile" name="PictureFile" accept=".jpg,.jpeg,.png">
+                @Html.ValidationMessageFor(x => x.PictureFile, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-3">
+                <a href="#" id="addmore" class="btn btn-primary">Add Project</a>
+            </div>
+
+            <div id="container">
+                @Html.Action("AddNewProject", "Employee")
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <div>
+                    <button type="submit" class="btn btn-primary px-4">Save Employee</button>
+                </div>
+                <div>
+                    <a href="@Url.Action("Index", "Employee")" class="btn btn-secondary px-4">Back to List</a>
+                </div>
+            </div>
+            <!-- Form End -->
+        }
+    </div>
+
